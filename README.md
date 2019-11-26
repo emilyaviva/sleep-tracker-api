@@ -16,7 +16,13 @@ From another terminal, you should then be able to make HTTP requests to `http://
 
 ### Help! There aren't any people in my database!
 
-From your console, you can manually add people:
+If you have the server running, you can make HTTP requests to add people, e.g. (using [httpie](https://httpie.org/)):
+
+```
+http post localhost:3001/people name="Harry Potter" birthdate="31 July 1980"
+```
+
+Alternatively, you can manually add people from the Rails console. In your terminal:
 1. `bundle exec rails console`
 2. `Person.create(name: "John Smith", birthdate: "12 January 2019")`, repeat as necessary
 3. `exit`
