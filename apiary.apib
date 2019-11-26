@@ -1,80 +1,78 @@
 FORMAT: 1A
-HOST: http://polls.apiblueprint.org/
+HOST: http://localhost:3001
 
 # Sleep Tracker API
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+This is a REST API for tracking sleep periods (e.g. for a toddler) for multiple people.
+A person may have multiple sleep periods, and all sleep periods belong to one person.
 
-## Questions Collection [/questions]
+## People Collection [/people]
 
-### List All Questions [GET]
+### List All People [GET]
+
+Lists all people, their names, birthdays, and ID numbers.
 
 + Response 200 (application/json)
 
         [
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
+                "birthdate": "1999-05-02",
+                "created_at": "2019-11-26T00:27:49.364Z",
+                "id": 20,
+                "name": "John Sample",
+                "updated_at": "2019-11-26T00:27:49.364Z"
+            },
+            {
+                "birthdate": "2004-08-31",
+                "created_at": "2019-11-26T00:28:08.786Z",
+                "id": 21,
+                "name": "Jane Sample",
+                "updated_at": "2019-11-26T00:28:08.786Z"
             }
         ]
 
-### Create a New Question [POST]
+### Create a New Person [POST]
 
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
+This action creates a new person.
+The `name` parameter is required; the `birthday` parameter is optional.
+The format of the `birthday` will be auto-interpreted, so you may pass `"12 May 2015"`, `"May 12, 2015"`, "`2015-05-12`", etc.
 
 + Request (application/json)
 
         {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
+            "name": "Erica Sample",
+            "birthdate": "12 August 2017"
         }
 
 + Response 201 (application/json)
 
-    + Headers
-
-            Location: /questions/2
-
     + Body
 
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
+                "birthdate": "2017-08-12",
+                "created_at": "2019-11-26T00:32:27.955Z",
+                "id": 22,
+                "name": "Erica Sample",
+                "updated_at": "2019-11-26T00:32:27.955Z"
             }
+            
+## Actions On Specific People [/people/{person_id}]
+            
+### Edit a Person [PUT]
+
+This action edits an existing person.
+Pass the `name` or `birthdate` you wish to edit in the payload.
+
++ Request (application/json)
+
+        {
+            "birthdate": "15 August 2017"
+        }
+    
++ Response 204 (application/json)
+
+### Delete a Person [DELETE]
+
+This action deletes an existing person.
+
++ Response 204
