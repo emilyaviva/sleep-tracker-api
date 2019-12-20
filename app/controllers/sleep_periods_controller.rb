@@ -14,14 +14,14 @@ class SleepPeriodsController < ApplicationController
 
   # POST /people/:person_id/sleep_periods
   def create
-    @person.sleep_periods.create!(sleep_period_params)
-    json_response(@person, :created)
+    @sleep_period = @person.sleep_periods.create!(sleep_period_params)
+    json_response(@sleep_period, :created)
   end
 
   # PUT /people/:person_id/sleep_periods/:id
   def update
-    @sleep_period.update(sleep_period_params)
-    head :no_content
+    @sleep_period.update!(sleep_period_params)
+    json_response(@sleep_period, :ok)
   end
 
   # DELETE /people/:person_id/sleep_periods/:id
