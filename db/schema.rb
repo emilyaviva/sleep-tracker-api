@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2019_11_20_231303) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "people", force: :cascade do |t|
     t.string "name"
     t.date "birthdate"
@@ -24,7 +27,7 @@ ActiveRecord::Schema.define(version: 2019_11_20_231303) do
     t.datetime "ended_at"
     t.integer "quality"
     t.string "notes"
-    t.integer "person_id", null: false
+    t.bigint "person_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["person_id"], name: "index_sleep_periods_on_person_id"
