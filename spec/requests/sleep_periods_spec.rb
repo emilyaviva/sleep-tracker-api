@@ -95,8 +95,8 @@ RSpec.describe 'Sleep Periods API' do
     before { put "/people/#{person_id}/sleep_periods/#{id}", params: valid_attributes }
 
     context 'when sleep period exists' do
-      it 'returns status code 204' do
-        expect(response).to have_http_status(204)
+      it 'returns status code 200' do
+        expect(response).to have_http_status(200)
       end
 
       it 'updates the sleep period' do
